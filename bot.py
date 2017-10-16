@@ -24,8 +24,5 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith('!test'):
-
+    if message.content.startswith('!hello'):
         await client.send_message(message.channel,"hi there mate this is a robot")
-
-client.run("MzY5NTk2MTA3MDMxOTY5Nzky.DMa0_A.ShfwX3ywCG2G6DoyL73aDegxZVM")
