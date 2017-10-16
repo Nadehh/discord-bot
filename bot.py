@@ -5,7 +5,6 @@ import shelve
 
 client = discord.Client()
 
-
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -24,5 +23,5 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith('!hello'):
+    if message.content[0]=="!":
         await client.send_message(message.channel,"hi there mate this is a robot")
