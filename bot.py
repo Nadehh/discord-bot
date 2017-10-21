@@ -48,4 +48,4 @@ async def on_message(message):
             await client.send_message(message.channel,chatMessage[1]+": "+weather.getWeatherStatusDetail(chatMessage[1]))
 
         elif chatMessage[0]=="temperature":
-            await client.send_message(message.channel,chatMessage[1]+": "+weather.getTemperature(chatMessage[1]+" degrees Celcius"))
+            await client.send_message(message.channel,chatMessage[1]+": "+weather.getTemperature(chatMessage[1])+" degrees Celcius")
