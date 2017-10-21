@@ -26,20 +26,20 @@ async def on_ready():
 @client.event
 async def on_message(message):
 
-    chatMessage = message.content[1:].lower().split()
+    chatMessage = message.content.lower().split()
 
-    if message.content[0]=="!":
+    if message.content[0]=="!": #check if its a command we want to listen to, then we check against our commands
 
-        if chatMessage[0]=="hello":
+        if chatMessage[0]=="!hello":
             await client.send_message(message.channel,"hello! I am weather bot :) type !commands for my functionality!")
 
 
-        elif chatMessage[0] == "commands":
+        elif chatMessage[0] == "!commands":
 
             await client.send_message(message.channel,"Command1: temperature\nCommand2: weather\nCommand3: weatherdetail")
 
 
-        elif chatMessage[0]=="weather":
+        elif chatMessage[0]=="!weather":
 
             weatherBasic = weather.getWeatherStatus(chatMessage[1])
 
@@ -51,7 +51,7 @@ async def on_message(message):
 
                 await client.send_message(message.channel,"That location doesnt exist!")
 
-        elif chatMessage[0]=="weatherdetail":
+        elif chatMessage[0]=="!weatherdetail":
             weatherDetail = weather.getWeatherStatusDetail(chatMessage[1])
 
             if weatherDetail:
@@ -62,7 +62,7 @@ async def on_message(message):
 
                 await client.send_message(message.channel,"That location doesnt exist!")
 
-        elif chatMessage[0]=="temperature":
+        elif chatMessage[0]=="!temperature":
 
             temp = weather.getTemperature(chatMessage[1])
 
