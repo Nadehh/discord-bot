@@ -26,7 +26,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
 
-    chatMessage = message.content[1:].split()
+    chatMessage = message.content[1:].lower().split()
 
     if message.content[0]=="!":
 
@@ -41,11 +41,35 @@ async def on_message(message):
 
         elif chatMessage[0]=="weather":
 
-            await client.send_message(message.channel,chatMessage[1]+": "+weather.getWeatherStatus(chatMessage[1]))
+            weatherBasic = weather.getWeatherStatus(chatMessage[1])
+
+            if weather:
+
+                await client.send_message(message.channel,chatMessage[1]+": "+weatherBasic)
+
+            else:
+
+                await client.send_message(message.channel,"That location doesnt exist!")
 
         elif chatMessage[0]=="weatherdetail":
+            weatherDetail = weather.getWeatherStatusDetail(chatMessage[1])
 
-            await client.send_message(message.channel,chatMessage[1]+": "+weather.getWeatherStatusDetail(chatMessage[1]))
+            if weatherDetail:
+
+                await client.send_message(message.channel,chatMessage[1]+": "+weatherDetail)
+
+            else:
+
+                await client.send_message(message.channel,"That location doesnt exist!")
 
         elif chatMessage[0]=="temperature":
-            await client.send_message(message.channel,chatMessage[1]+": "+weather.getTemperature(chatMessage[1])+" degrees Celcius")
+
+            temp = weather.getTemperature(chatMessage[1])
+
+            if temp:
+
+                await client.send_message(message.channel,chatMessage[1]+": "+temp+" degrees Celcius")
+
+            else:
+
+                await client.send_message(message.channel,"That location doesnt exist!")
