@@ -28,48 +28,38 @@ async def on_message(message):
 
     chatMessage = message.content.lower().split()
 
-    if message.content[0]=="!": #check if its a command we want to listen to, then we check against our commands
+    try:
+        if message.content[0]=="!": #check if its a command we want to listen to, then we check against our commands
 
-        if chatMessage[0]=="!hello":
-            await client.send_message(message.channel,"hello! I am weather bot :) type !commands for my functionality!")
-
-
-        elif chatMessage[0] == "!commands":
-
-            await client.send_message(message.channel,"Command1: temperature\nCommand2: weather\nCommand3: weatherdetail")
+            if chatMessage[0]=="!hello":
+                await client.send_message(message.channel,"hello! I am weather bot :) type !commands for my functionality!")
 
 
-        elif chatMessage[0]=="!weather":
+            elif chatMessage[0] == "!commands":
 
-            weatherBasic = weather.getWeatherStatus(chatMessage[1])
+                await client.send_message(message.channel,"Command1: temperature\nCommand2: weather\nCommand3: weatherdetail")
 
-            if weather:
 
+
+            elif chatMessage[0]=="!weather":
+
+                weatherBasic = weather.getWeatherStatus(chatMessage[1])
                 await client.send_message(message.channel,chatMessage[1]+": "+weatherBasic)
 
-            else:
 
-                await client.send_message(message.channel,"That location doesnt exist!")
 
-        elif chatMessage[0]=="!weatherdetail":
-            weatherDetail = weather.getWeatherStatusDetail(chatMessage[1])
+            elif chatMessage[0]=="!weatherdetail":
 
-            if weatherDetail:
-
+                weatherDetail = weather.getWeatherStatusDetail(chatMessage[1])
                 await client.send_message(message.channel,chatMessage[1]+": "+weatherDetail)
 
-            else:
 
-                await client.send_message(message.channel,"That location doesnt exist!")
 
-        elif chatMessage[0]=="!temperature":
+            elif chatMessage[0]=="!temperature":
 
-            temp = weather.getTemperature(chatMessage[1])
-
-            if temp:
-
+                temp = weather.getTemperature(chatMessage[1])
                 await client.send_message(message.channel,chatMessage[1]+": "+temp+" degrees Celcius")
 
-            else:
+    except AttributeError as invalid:
 
-                await client.send_message(message.channel,"That location doesnt exist!")
+        await client.send_message(message.channel,invalid)
