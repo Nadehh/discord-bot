@@ -37,29 +37,36 @@ async def on_message(message):
 
             elif chatMessage[0] == "!commands":
 
-                await client.send_message(message.channel,"Command1: temperature\nCommand2: weather\nCommand3: weatherdetail")
+                await client.send_message(message.channel,"Command1: !temperature\nCommand2: !weather\nCommand3: !weatherdetail\nCommand4: !humidity\nCommand5: !windspeed\n\nMore specific search: Dublin,ie etc")
 
 
 
             elif chatMessage[0]=="!weather":
 
                 weatherBasic = weather.getWeatherStatus(chatMessage[1])
-                await client.send_message(message.channel,chatMessage[1]+": "+weatherBasic)
+                await client.send_message(message.channel,weatherBasic)
 
 
 
             elif chatMessage[0]=="!weatherdetail":
 
                 weatherDetail = weather.getWeatherStatusDetail(chatMessage[1])
-                await client.send_message(message.channel,chatMessage[1]+": "+weatherDetail)
+                await client.send_message(message.channel,weatherDetail)
 
 
 
             elif chatMessage[0]=="!temperature":
 
                 temp = weather.getTemperature(chatMessage[1])
-                await client.send_message(message.channel,chatMessage[1]+": "+temp+" degrees Celcius")
+                await client.send_message(message.channel,temp)
 
+            elif chatMessage[0]=="!humidity":
+                humidity = weather.getHumidity(chatMessage[1])
+                await client.send_message(message.channel,humidity)
+
+            elif chatMessage[0]=="!windspeed":
+                windspeed = weather.getWindSpeed(chatMessage[1])
+                await client.send_message(message.channel,windspeed)
     except AttributeError as invalid:
 
         await client.send_message(message.channel,invalid)
