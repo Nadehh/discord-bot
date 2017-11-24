@@ -26,47 +26,56 @@ async def on_ready():
 @client.event
 async def on_message(message):
 
+    result=None
     chatMessage = message.content.lower().split()
 
     try:
         if message.content[0]=="!": #check if its a command we want to listen to, then we check against our commands
 
             if chatMessage[0]=="!hello":
-                await client.send_message(message.channel,"hello! I am weather bot :) type !commands for my functionality!")
+                result = "hello! I am weather bot :) type !commands for my functionality!"
 
 
             elif chatMessage[0] == "!commands":
 
-                await client.send_message(message.channel,"Command1: !temperature\nCommand2: !weather\nCommand3: !weatherdetail\nCommand4: !humidity\nCommand5: !windspeed\n\nMore specific search: Dublin,ie etc")
-
+                result = "Command1: !temperature\nCommand2: !weather\nCommand3: !weatherdetail\nCommand4: !humidity\nCommand5: !windspeed\n\nMore specific search: Dublin,ie etc"
 
 
             elif chatMessage[0]=="!weather":
 
-                weatherBasic = weather.getWeatherStatus(chatMessage[1])
-                await client.send_message(message.channel,weatherBasic)
-
+                result = weather.getWeatherStatus(chatMessage[1])
 
 
             elif chatMessage[0]=="!weatherdetail":
 
-                weatherDetail = weather.getWeatherStatusDetail(chatMessage[1])
-                await client.send_message(message.channel,weatherDetail)
-
+                result = weather.getWeatherStatusDetail(chatMessage[1])
 
 
             elif chatMessage[0]=="!temperature":
 
-                temp = weather.getTemperature(chatMessage[1])
-                await client.send_message(message.channel,temp)
+                result = weather.getTemperature(chatMessage[1])
+
 
             elif chatMessage[0]=="!humidity":
-                humidity = weather.getHumidity(chatMessage[1])
-                await client.send_message(message.channel,humidity)
+
+                result = weather.getHumidity(chatMessage[1])
+
 
             elif chatMessage[0]=="!windspeed":
-                windspeed = weather.getWindSpeed(chatMessage[1])
-                await client.send_message(message.channel,windspeed)
-    except AttributeError as invalid:
+
+                result = weather.getWindSpeed(chatMessage[1])
+
+
+            elif chatMessage[0]=="!cloudcoverage":
+
+                result = weather.getCloudCoverage(chatMessage[1])
+
+            if result: #checking against invalid command
+                await client.send_message(message.channel,result)
+
+    except ValueError as invalid:
 
         await client.send_message(message.channel,invalid)
+        
+
+client.run(" DISCORD BOT KEY ")
